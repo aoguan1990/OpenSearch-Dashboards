@@ -48,6 +48,7 @@ import {
 } from './opensearch_client_config';
 import { LegacyScopedClusterClient, ILegacyScopedClusterClient } from './scoped_cluster_client';
 import { LegacyCallAPIOptions, LegacyAPICaller } from './api_types';
+import { Console } from 'console';
 
 /**
  * Support Legacy platform request for the period of migration.
@@ -78,6 +79,10 @@ const callAPI = async (
   }
 
   const apiContext = clientPath.length === 1 ? client : get(client, clientPath.slice(0, -1));
+  //console.log("callAPI:: apiContext::");
+  //console.log(apiContext);
+  //console.log("callAPI:: clientParams::")
+  //console.log(clientParams);
   try {
     return await new Promise((resolve, reject) => {
       const request = api.call(apiContext, clientParams);

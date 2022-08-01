@@ -44,6 +44,7 @@ import { HttpFetchError } from './http_fetch_error';
 import { HttpInterceptController } from './http_intercept_controller';
 import { interceptRequest, interceptResponse } from './intercept';
 import { HttpInterceptHaltError } from './http_intercept_halt_error';
+import { request } from 'http';
 
 interface Params {
   basePath: IBasePath;
@@ -93,6 +94,9 @@ export class Fetch {
     const optionsWithPath = validateFetchArguments(pathOrOptions, options);
     const controller = new HttpInterceptController();
 
+    console.log("optionsWithPath::");
+    console.log(optionsWithPath);
+    
     // We wrap the interception in a separate promise to ensure that when
     // a halt is called we do not resolve or reject, halting handling of the promise.
     return new Promise<TResponseBody | HttpResponse<TResponseBody>>(async (resolve, reject) => {
@@ -103,6 +107,8 @@ export class Fetch {
           this.interceptors,
           controller
         );
+        console.log("fetch.ts:: interceptedOptions::");
+        console.log(interceptedOptions);
         const initialResponse = this.fetchResponse(interceptedOptions);
         const interceptedResponse = await interceptResponse(
           interceptedOptions,
@@ -116,6 +122,8 @@ export class Fetch {
         } else {
           resolve(interceptedResponse.body);
         }
+        console.log("fetch:: interceptedResponse::");
+        console.log(interceptedResponse);
       } catch (error) {
         if (!(error instanceof HttpInterceptHaltError)) {
           reject(error);
@@ -158,6 +166,12 @@ export class Fetch {
       fetchOptions.headers['osd-system-request'] = 'true';
     }
 
+    //fetchOptions.headers["Access-Control-Allow-Origin"] = "true";
+
+    console.log("fetch:: createRequest:: url");
+    console.log(url);
+    console.log("fetch:: createRequest:: fetchOptions::");
+    console.log(fetchOptions);
     return new Request(url, fetchOptions as RequestInit);
   }
 

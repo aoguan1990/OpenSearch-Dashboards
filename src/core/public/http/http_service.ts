@@ -54,10 +54,15 @@ export class HttpService implements CoreService<HttpSetup, HttpStart> {
       injectedMetadata.getBasePath(),
       injectedMetadata.getServerBasePath()
     );
+    console.log("httpservice basepath");
+    console.log(injectedMetadata.getBasePath());
+    console.log(injectedMetadata.getServerBasePath());
+    console.log(basePath);
+    
     const fetchService = new Fetch({ basePath, opensearchDashboardsVersion });
     const loadingCount = this.loadingCount.setup({ fatalErrors });
     loadingCount.addLoadingCountSource(fetchService.getRequestCount$());
-
+    
     this.service = {
       basePath,
       anonymousPaths: this.anonymousPaths.setup({ basePath }),
