@@ -28,5 +28,4 @@
  * under the License.
  */
 
-
 require('../src/cli/dev');

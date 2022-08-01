@@ -34,7 +34,7 @@ import { Reference } from '../references';
 
 export interface TypeOptions<T> {
   defaultValue?: T | Reference<T> | (() => T);
-  validate?: (value: T) => string | void ;
+  validate?: (value: T) => string | void;
 }
 
 export abstract class Type<V> {

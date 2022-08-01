@@ -177,8 +177,8 @@ export class CoreSystem {
         notifications,
         uiSettings,
       };
-      console.log("InternalCoreSetup:: ");
-      console.log(core);
+      // console.log('InternalCoreSetup:: ');
+      // console.log(core);
 
       // Services that do not expose contracts at setup
       await this.plugins.setup(core);
